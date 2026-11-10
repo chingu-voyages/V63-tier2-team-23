@@ -36,7 +36,4 @@ coding!
 
 - Emmanuel Oduntan: [GitHub](https://github.com/oduntane) / [LinkedIn](https://linkedin.com/in/oduntane)
 - Stephen Geoffrey #2: [GitHub](https://github.com/Stephen9883002) / [LinkedIn](https://www.linkedin.com/in/stephen-geoffrey)
-
-  ...
-
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Mahsa Nasiry: [GitHub](https://github.com/mahsanasiry) / [LinkedIn](https://linkedin.com/in/mahsa-nasiry2009)

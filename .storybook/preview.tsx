@@ -1,9 +1,9 @@
-import type { StorybookConfig } from "@storybook/nextjs-vite";
+import type { Preview } from "@storybook/nextjs-vite";
+import "../src/app/globals.css";
 
-const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-a11y", "@storybook/addon-docs"],
-  framework: "@storybook/nextjs-vite",
-  staticDirs: ["../public"],
+const preview: Preview = {
+  parameters: {
+    controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
+  },
 };
-export default config;
+export default preview;

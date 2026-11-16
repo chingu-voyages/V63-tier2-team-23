@@ -1,3 +1,3 @@
 export default function Home() {
-  return <h1 className="p-4 text-2xl">Event Planner</h1>;
+  return <h1 className="p-4 text-display">Event Planner</h1>;
 }

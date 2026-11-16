@@ -1,4 +1,9 @@
 /** tokens **/
+@theme inline {
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-sans2: var(--font-inter), sans-serif;
+}
+
 @theme {
   --color-*: initial;
 
@@ -24,4 +29,42 @@
   --color-on-warning: #ffffff;
   --color-warning-container: #fff3cf;
   --color-scrim: #192e277a;
+
+  /* text */
+  --text-*: initial;
+
+  --text-display: 40px;
+  --text-display--line-height: 48px;
+  --text-display--font-weight: var(--font-weight-bold);
+  --text-display--letter-spacing: -1.2px;
+
+  --text-title: 32px;
+  --text-title--line-height: 40px;
+  --text-title--font-weight: var(--font-weight-bold);
+  --text-title--letter-spacing: -0.8px;
+
+  --text-headline: 24px;
+  --text-headline--line-height: 32px;
+  --text-headline--font-weight: var(--font-weight-bold);
+  --text-headline--letter-spacing: -0.4px;
+
+  --text-subheadline: 18px;
+  --text-subheadline--line-height: 28px;
+  --text-subheadline--font-weight: var(--font-weight-semibold);
+  --text-subheadline--letter-spacing: -0.2px;
+
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: var(--font-weight-normal);
+  --text-body--letter-spacing: 0;
+
+  --text-label: 14px;
+  --text-label--line-height: 20px;
+  --text-label--font-weight: var(--font-weight-semibold);
+  --text-label--letter-spacing: 0;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-caption--font-weight: var(--font-weight-medium);
+  --text-caption--letter-spacing: 0.2px;
 }

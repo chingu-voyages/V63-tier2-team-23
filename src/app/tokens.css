@@ -1,0 +1,27 @@
+/** tokens **/
+@theme {
+  --color-*: initial;
+
+  --color-primary: #145c46;
+  --color-on-primary: #ffffff;
+  --color-secondary: #e7f1cb;
+  --color-on-secondary: #29401c;
+  --color-surface: #ffffff;
+  --color-surface-variant: #f0f3ef;
+  --color-on-surface: #192e27;
+  --color-on-surface-variant: #53655d;
+  --color-background: #f7f8f3;
+  --color-on-background: #192e27;
+  --color-outline: #7c8c83;
+  --color-outline-variant: #dce3dc;
+  --color-error: #b3261e;
+  --color-on-error: #ffffff;
+  --color-error-container: #fff0ed;
+  --color-success: #206440;
+  --color-on-success: #ffffff;
+  --color-success-container: #eaf4eb;
+  --color-warning: #735100;
+  --color-on-warning: #ffffff;
+  --color-warning-container: #fff3cf;
+  --color-scrim: #192e277a;
+}

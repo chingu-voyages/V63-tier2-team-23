@@ -67,4 +67,18 @@
   --text-caption--line-height: 16px;
   --text-caption--font-weight: var(--font-weight-medium);
   --text-caption--letter-spacing: 0.2px;
+
+  /* space and shape elevation */
+  --spacing: 4px;
+
+  --radius-none: 0px;
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-xlarge: 24px;
+
+  /* elevation */
+  --shadow-flat: 0;
+  --shadow-card: 0 1px 4px color-mix(in srgb, var(--color-on-surface) 4%, transparent);
+  --shadow-dialog: 0 12px 32px color-mix(in srgb, var(--color-on-surface) 16%, transparent);
 }

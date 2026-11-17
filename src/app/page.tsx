@@ -1,3 +1,5 @@
+import Feedback from "@/components/Feedback";
+
 export default function Home() {
-  return <h1 className="p-4 text-display">Event Planner</h1>;
+  return <Feedback type="error" message="invalid email or password" className="w-60" />;
 }

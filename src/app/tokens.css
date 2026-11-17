@@ -71,6 +71,8 @@
   /* space and shape elevation */
   --spacing: 4px;
 
+  --radius-*: initial;
+
   --radius-none: 0px;
   --radius-small: 8px;
   --radius-medium: 12px;

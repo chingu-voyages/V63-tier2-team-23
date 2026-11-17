@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
-import Text from "./Text";
+import Text, { type Variant } from "./Text";
+import { ElementType } from "react";
 
 describe("Text", () => {
   it('renders a span by default when no "as" prop is given', () => {
@@ -9,12 +10,29 @@ describe("Text", () => {
     expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toEqual("span");
   });
 
-  it.each(["h1", "h2", "label", "div"])('renders a %s element when "as" is set to "%s"', (tag) => {
-    const { container } = render(<Text as={tag} />);
-    expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toBe(tag);
-  });
+  it.each(["h1", "h2", "label", "div"] as ElementType[])(
+    'renders a %s element when "as" is set to "%s"',
+    (tag) => {
+      const { container } = render(<Text as={tag} />);
+      expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toBe(tag);
+    },
+  );
 
-  // it.each(variants)('applies the "%s" variant styles', () => {});
+  it.each(["display", "title", "headline", "subheadline", "body", "label", "caption"] as Variant[])(
+    'applies the "%s" variant styles',
+    (variant) => {
+      render(<Text variant={variant}>Testing</Text>);
+      const el = screen.getByText(/Testing/);
+
+      if (["display", "title", "headline"].includes(variant)) {
+        expect(el.classList.contains("font-sans!")).toBe(true);
+      } else {
+        expect(el.classList.contains("font-sans2!")).toBe(true);
+      }
+
+      expect(el.classList.contains(`text-${variant}!`)).toBe(true);
+    },
+  );
 
   it("renders its children unchanged", () => {
     const classProps = {
@@ -32,9 +50,7 @@ describe("Text", () => {
 
     expect(el.textContent).toBe("Event Planner!");
 
-    expect(el.attributes.getNamedItem("class")?.textContent).toBe(classProps.className);
-    expect(el.attributes.getNamedItem("width")?.textContent).toBe(classProps.width);
+    expect(el.attributes.getNamedItem("class")?.textContent).toContain(classProps.className);
+    expect(el.attributes.getNamedItem("width")?.textContent).toContain(classProps.width);
   });
-
-  it("keeps the variant styles when a className is passed", () => {});
 });

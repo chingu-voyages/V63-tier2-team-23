@@ -5,7 +5,10 @@ import Text from "./Text";
 describe("Text", () => {
   it('renders a span by default when no "as" prop is given', () => {});
 
-  it.each(["h1", "h2", "label", "div"])('renders a %s element when "as" is set to "%s"', () => {});
+  it.each(["h1", "h2", "label", "div"])('renders a %s element when "as" is set to "%s"', (tag) => {
+    const { container } = render(<Text as={tag} />);
+    expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toBe(tag);
+  });
 
   // it.each(variants)('applies the "%s" variant styles', () => {});
 
@@ -15,7 +18,11 @@ describe("Text", () => {
       width: "10px",
     };
 
-    render(<Text {...classProps}>Event Planner!</Text>);
+    render(
+      <Text as="span" {...classProps}>
+        Event Planner!
+      </Text>,
+    );
 
     const el = screen.getByText(/Event Planner!/);
 

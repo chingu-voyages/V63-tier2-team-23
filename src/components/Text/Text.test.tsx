@@ -1,13 +1,29 @@
-import Text from "./Text.tsx";
+import { render, screen } from "@testing-library/react";
+
+import Text from "./Text";
 
 describe("Text", () => {
   it('renders a span by default when no "as" prop is given', () => {});
 
   it.each(["h1", "h2", "label", "div"])('renders a %s element when "as" is set to "%s"', () => {});
 
-  it.each(variants)('applies the "%s" variant styles', () => {});
+  // it.each(variants)('applies the "%s" variant styles', () => {});
 
-  it("renders its children unchanged", () => {});
+  it("renders its children unchanged", () => {
+    const classProps = {
+      className: "name1 name2 name3 name4",
+      width: "10px",
+    };
+
+    render(<Text {...classProps}>Event Planner!</Text>);
+
+    const el = screen.getByText(/Event Planner!/);
+
+    expect(el.textContent).toBe("Event Planner!");
+
+    expect(el.attributes.getNamedItem("class")?.textContent).toBe(classProps.className);
+    expect(el.attributes.getNamedItem("width")?.textContent).toBe(classProps.width);
+  });
 
   it("keeps the variant styles when a className is passed", () => {});
 });

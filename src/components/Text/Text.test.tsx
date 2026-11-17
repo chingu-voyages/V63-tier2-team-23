@@ -3,7 +3,11 @@ import { render, screen } from "@testing-library/react";
 import Text from "./Text";
 
 describe("Text", () => {
-  it('renders a span by default when no "as" prop is given', () => {});
+  it('renders a span by default when no "as" prop is given', () => {
+    const { container } = render(<Text />);
+
+    expect(container.firstElementChild?.tagName.toLocaleLowerCase()).toEqual("span");
+  });
 
   it.each(["h1", "h2", "label", "div"])('renders a %s element when "as" is set to "%s"', (tag) => {
     const { container } = render(<Text as={tag} />);

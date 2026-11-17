@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import Text, { type Variant } from "./Text";
+import Text, { type TextVariant } from "./Text";
 import { ElementType } from "react";
 
 describe("Text", () => {
@@ -18,21 +18,26 @@ describe("Text", () => {
     },
   );
 
-  it.each(["display", "title", "headline", "subheadline", "body", "label", "caption"] as Variant[])(
-    'applies the "%s" variant styles',
-    (variant) => {
-      render(<Text variant={variant}>Testing</Text>);
-      const el = screen.getByText(/Testing/);
+  it.each([
+    "display",
+    "title",
+    "headline",
+    "subheadline",
+    "body",
+    "label",
+    "caption",
+  ] as TextVariant[])('applies the "%s" variant styles', (variant) => {
+    render(<Text variant={variant}>Testing</Text>);
+    const el = screen.getByText(/Testing/);
 
-      if (["display", "title", "headline"].includes(variant)) {
-        expect(el.classList.contains("font-sans!")).toBe(true);
-      } else {
-        expect(el.classList.contains("font-sans2!")).toBe(true);
-      }
+    if (["display", "title", "headline"].includes(variant)) {
+      expect(el.classList.contains("font-sans!")).toBe(true);
+    } else {
+      expect(el.classList.contains("font-sans2!")).toBe(true);
+    }
 
-      expect(el.classList.contains(`text-${variant}!`)).toBe(true);
-    },
-  );
+    expect(el.classList.contains(`text-${variant}!`)).toBe(true);
+  });
 
   it("renders its children unchanged", () => {
     const classProps = {

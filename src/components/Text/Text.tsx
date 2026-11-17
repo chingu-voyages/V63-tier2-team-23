@@ -10,12 +10,13 @@ const variantStyles = {
   caption: "text-caption! font-sans2!",
 };
 
-export type Variant = keyof typeof variantStyles;
+export type TextVariant = keyof typeof variantStyles;
+export const textVariants = Object.keys(variantStyles) as TextVariant[];
 
 type TextProps = HTMLAttributes<HTMLElement> & {
   children?: ReactNode;
   as?: ElementType;
-  variant?: Variant;
+  variant?: TextVariant;
 };
 
 export default function Text({

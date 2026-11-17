@@ -19,6 +19,15 @@ type TextProps = HTMLAttributes<HTMLElement> & {
   variant?: TextVariant;
 };
 
+/**
+ * Renders a Text component
+ *
+ * Use `variant` to pick the Text style and `as` to pick the HTML Element the text will be rendered as
+ *
+ * **Example**
+ *
+ * <code><pre><Text variant="display" as="h1">Event Planner</Text></pre></code>
+ */
 export default function Text({
   children,
   variant = "body",

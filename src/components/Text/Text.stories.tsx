@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import Text, { TextVariant, textVariants } from "./Text";
 
 const meta = {
-  title: "components/Text",
+  title: "Foundations/Typography/Text",
   component: Text,
   tags: ["autodocs"],
   args: {
     children: "Event Planner",
   },
+  parameters: { controls: { disable: true } },
   argTypes: {
     variant: {
       control: "select",
@@ -22,19 +23,50 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
-export const Control: Story = {};
+export const Default: Story = {
+  parameters: { controls: { disable: false } },
+};
 
-export const Variants: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex flex-col gap-4">
-      {textVariants.map((variant) => (
-        <Text key={variant} variant={variant}>
-          {variant[0].toUpperCase() + variant.slice(1)}: Event Planner
-        </Text>
-      ))}
-    </div>
-  ),
+export const Display: Story = {
+  args: {
+    variant: "display",
+  },
+};
+
+export const Title: Story = {
+  args: {
+    variant: "title",
+  },
+};
+
+export const Headline: Story = {
+  args: {
+    variant: "headline",
+  },
+};
+
+export const Subheadline: Story = {
+  args: {
+    variant: "subheadline",
+  },
+};
+
+export const Body: Story = {
+  args: {
+    variant: "body",
+  },
+};
+
+export const Label: Story = {
+  args: {
+    variant: "label",
+  },
+};
+
+export const Caption: Story = {
+  args: {
+    variant: "caption",
+  },
 };
 
 export default meta;

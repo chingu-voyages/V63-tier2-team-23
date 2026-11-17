@@ -99,8 +99,8 @@ function ColorSwatch({ name, variable, hex }: ColorSwatchProps) {
       />
       <div className="bg-white p-3">
         <p className="text-gray-900 text-sm font-medium">{name}</p>
-        <p className="text-gray-500 font-mono text-xs">{variable}</p>
-        <p className="text-gray-400 font-mono text-xs">{hex}</p>
+        <p className="text-gray-500 text-xs font-mono">{variable}</p>
+        <p className="text-gray-400 text-xs font-mono">{hex}</p>
       </div>
     </div>
   );
@@ -109,10 +109,10 @@ function ColorSwatch({ name, variable, hex }: ColorSwatchProps) {
 function ColorPalette() {
   return (
     <div>
-      <h2 className="text-gray-900 mb-2 text-2xl font-bold">Color Tokens</h2>
+      <h2 className="text-gray-900 text-2xl mb-2 font-bold">Color Tokens</h2>
       <p className="text-gray-600 mb-6">
         Design system color palette defined in{" "}
-        <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm">tokens.css</code>
+        <code className="bg-gray-100 text-sm rounded px-1 py-0.5 font-mono">tokens.css</code>
       </p>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {tokens.map((token) => (
@@ -124,7 +124,7 @@ function ColorPalette() {
 }
 
 const meta = {
-  title: "Colors/Default",
+  title: "Foundations/Colors",
   component: ColorPalette,
   parameters: {
     layout: "padded",

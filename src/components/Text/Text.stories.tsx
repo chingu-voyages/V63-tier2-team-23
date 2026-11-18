@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Text, { TextVariant, textVariants } from "./Text";
+import Text, { textVariants } from "./Text";
 
 const meta = {
   title: "Foundations/Typography/Text",

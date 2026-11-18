@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, ElementType, HTMLAttributes, ReactNode } from "react";
-import Text, { TextVariant } from "@/components/Text/Text";
+import { ComponentPropsWithoutRef } from "react";
+import Text from "@/components/Text/Text";
 
 const feedBackStyle = {
   error: "bg-error-container! text-error!",

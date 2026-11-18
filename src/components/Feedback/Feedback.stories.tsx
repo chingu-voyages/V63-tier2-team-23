@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Feedback, { feedbacktVariants, type FeedbackType } from "@/components/Feedback/Feedback";
+import Feedback, { feedbacktVariants } from "@/components/Feedback/Feedback";
 
 const meta = {
   title: "Components/Feedback",

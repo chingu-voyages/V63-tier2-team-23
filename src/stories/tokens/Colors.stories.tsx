@@ -67,21 +67,6 @@ const tokens = [
   { name: "Scrim", variable: "--color-scrim", hex: "#192e277a" },
 ];
 
-// Dark backgrounds that need light text for readability
-const darkBackgrounds = new Set([
-  "--color-primary",
-  "--color-on-secondary",
-  "--color-on-surface",
-  "--color-on-surface-variant",
-  "--color-on-background",
-  "--color-error",
-  "--color-success",
-  "--color-warning",
-  "--color-scrim",
-]);
-
-const isDark = (variable: string) => darkBackgrounds.has(variable);
-
 type ColorSwatchProps = {
   name: string;
   variable: string;
@@ -89,9 +74,8 @@ type ColorSwatchProps = {
 };
 
 function ColorSwatch({ name, variable, hex }: ColorSwatchProps) {
-  const dark = isDark(variable);
   return (
-    <div className="border-gray-200 overflow-hidden rounded-lg border shadow">
+    <div className="border-gray-200 rounded-lg overflow-hidden border shadow">
       <div
         className="h-24 w-full"
         style={{ backgroundColor: `var(${variable})` }}

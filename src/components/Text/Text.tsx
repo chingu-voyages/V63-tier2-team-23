@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 const variantStyles = {
   display: "text-display! font-sans!",

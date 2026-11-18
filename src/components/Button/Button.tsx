@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import Text from "@/components/Text/Text";
 
 const buttonTypeStyles = {

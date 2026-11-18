@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef, HTMLAttributes } from "react";
 import Text from "@/components/Text/Text";
 
 const buttonTypeStyles = {
@@ -8,18 +8,17 @@ const buttonTypeStyles = {
   text: "bg-surface text-on-surface-variant",
 };
 
-type ButtonType = "primary" | "secondary" | "danger" | "text";
-// type ButtonState = "default" | "loading";
-// TODO: add support for button state later
+type ButtonVariant = "primary" | "secondary" | "danger" | "text";
 
-type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
-  type: ButtonType;
-  // state: ButtonState;
+type ButtonOwnProps = {
+  type: ButtonVariant;
 };
 
-export default function Button({ type, children, className }: ButtonProps) {
+type ButtonProps = ButtonOwnProps & Omit<ComponentPropsWithoutRef<"button">, keyof ButtonOwnProps>;
+
+export default function Button({ type, children, className, ...props }: ButtonProps) {
   return (
-    <button className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`}>
+    <button className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`} {...props}>
       <Text variant="label">{children}</Text>
     </button>
   );

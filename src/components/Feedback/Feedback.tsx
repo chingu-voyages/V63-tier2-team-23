@@ -1,4 +1,4 @@
-import { ElementType, HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, HTMLAttributes, ReactNode } from "react";
 import Text, { TextVariant } from "@/components/Text/Text";
 
 const feedBackStyle = {
@@ -11,10 +11,13 @@ export type FeedbackType = keyof typeof feedBackStyle;
 
 export const feedbacktVariants = Object.keys(feedBackStyle) as FeedbackType[];
 
-type FeedbackProps = HTMLAttributes<HTMLElement> & {
+type FeedbackOwnProps = {
   type: FeedbackType;
   message: string;
 };
+
+type FeedbackProps = FeedbackOwnProps &
+  Omit<ComponentPropsWithoutRef<"div">, keyof FeedbackOwnProps>;
 
 /**
  * Displays a short feedback message with a style matching its type.
@@ -37,9 +40,9 @@ type FeedbackProps = HTMLAttributes<HTMLElement> & {
  * <Feedback type="loading" message="Saving changes..." />
  * ```
  */
-export default function Feedback({ type, message, className }: FeedbackProps) {
+export default function Feedback({ type, message, className, ...props }: FeedbackProps) {
   return (
-    <div className={`rounded rounded-small p-4 ${feedBackStyle[type]} ${className}`}>
+    <div className={`rounded rounded-small p-4 ${feedBackStyle[type]} ${className}`} {...props}>
       <Text variant="label">{message}</Text>
     </div>
   );

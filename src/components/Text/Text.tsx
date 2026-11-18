@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, ElementType } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 
 const variantStyles = {
   display: "text-display! font-sans!",
@@ -15,7 +15,6 @@ export const textVariants = Object.keys(variantStyles) as TextVariant[];
 
 type TextProps = HTMLAttributes<HTMLElement> & {
   children?: ReactNode;
-  as?: ElementType;
   variant?: TextVariant;
 };
 
@@ -27,7 +26,6 @@ type TextProps = HTMLAttributes<HTMLElement> & {
  * | Prop | Type | Description |
  * |------|------|-------------|
  * | `variant` | `"display"` \| `"title"` \| `"headline"` \| `"subheadline"` \| `"body"` \| `"label"` \| `"caption"` | The typography style (default: `"body"`) |
- * | `as` | `ElementType` | The HTML tag to render as (default: `"span"`) |
  * | `children` | `ReactNode` | The text content |
  * | `className` | `string` | Optional extra CSS classes |
  *
@@ -36,21 +34,15 @@ type TextProps = HTMLAttributes<HTMLElement> & {
  * **Examples**
  *
  * ```tsx
- * <Text variant="display" as="h1">Event Planner</Text>
+ * <Text variant="display">Event Planner</Text>
  * <Text variant="body">Some body text</Text>
  * <Text variant="label" as="label" htmlFor="email">Email</Text>
  * ```
  */
-export default function Text({
-  children,
-  variant = "body",
-  as: Tag = "span",
-  className,
-  ...props
-}: TextProps) {
+export default function Text({ children, variant = "body", className, ...props }: TextProps) {
   return (
-    <Tag {...props} className={`${variantStyles[variant]} ${className}`}>
+    <span {...props} className={`${variantStyles[variant]} ${className}`}>
       {children}
-    </Tag>
+    </span>
   );
 }

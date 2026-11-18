@@ -14,10 +14,6 @@ const meta = {
       control: "select",
       options: textVariants,
     },
-    as: {
-      control: "select",
-      options: ["h1", "h2", "h3", "h4", "h5", "h6", "span", "div", "p", "label"],
-    },
   },
 } satisfies Meta<typeof Text>;
 

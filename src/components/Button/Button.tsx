@@ -19,12 +19,8 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 
 export default function Button({ type, children, className }: ButtonProps) {
   return (
-    <Text
-      variant="label"
-      as="button"
-      className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`}
-    >
-      {children}
-    </Text>
+    <button className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`}>
+      <Text variant="label">{children}</Text>
+    </button>
   );
 }

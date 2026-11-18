@@ -40,7 +40,7 @@ type FeedbackProps = HTMLAttributes<HTMLElement> & {
 export default function Feedback({ type, message, className }: FeedbackProps) {
   return (
     <div className={`rounded rounded-small p-4 ${feedBackStyle[type]} ${className}`}>
-      <Text as="label">{message}</Text>
+      <Text variant="label">{message}</Text>
     </div>
   );
 }

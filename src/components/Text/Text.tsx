@@ -20,13 +20,26 @@ type TextProps = HTMLAttributes<HTMLElement> & {
 };
 
 /**
- * Renders a Text component
+ * Renders text with a typography style from the design system.
  *
- * Use `variant` to pick the Text style and `as` to pick the HTML Element the text will be rendered as
+ * **Props**
  *
- * **Example**
+ * | Prop | Type | Description |
+ * |------|------|-------------|
+ * | `variant` | `"display"` \| `"title"` \| `"headline"` \| `"subheadline"` \| `"body"` \| `"label"` \| `"caption"` | The typography style (default: `"body"`) |
+ * | `as` | `ElementType` | The HTML tag to render as (default: `"span"`) |
+ * | `children` | `ReactNode` | The text content |
+ * | `className` | `string` | Optional extra CSS classes |
  *
- * <code><pre><Text variant="display" as="h1">Event Planner</Text></pre></code>
+ * Any valid HTML attribute (e.g. `id`, `data-*`, `aria-*`) is also supported.
+ *
+ * **Examples**
+ *
+ * ```tsx
+ * <Text variant="display" as="h1">Event Planner</Text>
+ * <Text variant="body">Some body text</Text>
+ * <Text variant="label" as="label" htmlFor="email">Email</Text>
+ * ```
  */
 export default function Text({
   children,

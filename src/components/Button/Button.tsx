@@ -19,7 +19,7 @@ type ButtonProps = ButtonOwnProps & Omit<ComponentPropsWithoutRef<"button">, key
 export default function Button({ type, children, className, ...props }: ButtonProps) {
   return (
     <button className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`} {...props}>
-      <Text variant="label">{children}</Text>
+      <Text type="label">{children}</Text>
     </button>
   );
 }

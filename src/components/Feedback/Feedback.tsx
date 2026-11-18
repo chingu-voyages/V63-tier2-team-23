@@ -43,7 +43,7 @@ type FeedbackProps = FeedbackOwnProps &
 export default function Feedback({ type, message, className, ...props }: FeedbackProps) {
   return (
     <div className={`rounded rounded-small p-4 ${feedBackStyle[type]} ${className}`} {...props}>
-      <Text variant="label">{message}</Text>
+      <Text type="label">{message}</Text>
     </div>
   );
 }

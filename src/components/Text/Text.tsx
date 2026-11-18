@@ -14,7 +14,7 @@ export type TextVariant = keyof typeof variantStyles;
 export const textVariants = Object.keys(variantStyles) as TextVariant[];
 
 type TextOwnProps = {
-  variant?: TextVariant;
+  type?: TextVariant;
 };
 
 type TextProps = TextOwnProps & Omit<ComponentPropsWithoutRef<"span">, keyof TextOwnProps>;
@@ -39,9 +39,9 @@ type TextProps = TextOwnProps & Omit<ComponentPropsWithoutRef<"span">, keyof Tex
  * <Text variant="label" as="label" htmlFor="email">Email</Text>
  * ```
  */
-export default function Text({ children, variant = "body", className, ...props }: TextProps) {
+export default function Text({ children, type = "body", className, ...props }: TextProps) {
   return (
-    <span {...props} className={`${variantStyles[variant]} ${className}`}>
+    <span {...props} className={`${variantStyles[type]} ${className}`}>
       {children}
     </span>
   );

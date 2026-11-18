@@ -10,7 +10,7 @@ const meta = {
   },
   parameters: { controls: { disable: true } },
   argTypes: {
-    variant: {
+    type: {
       control: "select",
       options: textVariants,
     },
@@ -25,43 +25,43 @@ export const Default: Story = {
 
 export const Display: Story = {
   args: {
-    variant: "display",
+    type: "display",
   },
 };
 
 export const Title: Story = {
   args: {
-    variant: "title",
+    type: "title",
   },
 };
 
 export const Headline: Story = {
   args: {
-    variant: "headline",
+    type: "headline",
   },
 };
 
 export const Subheadline: Story = {
   args: {
-    variant: "subheadline",
+    type: "subheadline",
   },
 };
 
 export const Body: Story = {
   args: {
-    variant: "body",
+    type: "body",
   },
 };
 
 export const Label: Story = {
   args: {
-    variant: "label",
+    type: "label",
   },
 };
 
 export const Caption: Story = {
   args: {
-    variant: "caption",
+    type: "caption",
   },
 };
 

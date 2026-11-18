@@ -15,6 +15,31 @@ type ConfirmationDialogOwnProps = {
 
 type ConfirmationDialogProps = ComponentPropsWithoutRef<"div"> & ConfirmationDialogOwnProps;
 
+/**
+ * Displays a confirmation dialog with a title, message, and action buttons.
+ *
+ * **Props**
+ *
+ * | Prop | Type | Description |
+ * |------|------|-------------|
+ * | `title` | `string` | The dialog title |
+ * | `message` | `string` | The dialog message |
+ * | `confirmLabel` | `string` | The label for the confirm button |
+ * | `cancelLabel` | `string` | The label for the cancel button |
+ * | `kind` | `"create"` \| `"edit"` \| `"delete"` | The dialog kind (affects styling) |
+ * | `onConfirmAction` | `() => void` | Callback when confirm is clicked |
+ * | `onCancelAction` | `() => void` | Callback when cancel is clicked |
+ * | `className` | `string` | Optional extra CSS classes |
+ *
+ * Any valid HTML attribute (e.g. `id`, `data-*`, `aria-*`) is also supported.
+ *
+ * **Examples**
+ *
+ * ```tsx
+ * <ConfirmationDialog kind="delete" title="Delete event" message="Are you sure?" confirmLabel="Delete" cancelLabel="Cancel" onConfirmAction={() => handleDelete()} onCancelAction={() => handleClose()} />
+ * <ConfirmationDialog kind="create" title="Create event" message="Proceed with creation?" confirmLabel="Create" cancelLabel="Cancel" onConfirmAction={() => handleCreate()} />
+ * ```
+ */
 export default function ConfirmationDialog({
   title,
   message,

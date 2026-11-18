@@ -1,3 +1,4 @@
+"use client";
 import { ComponentPropsWithoutRef } from "react";
 import Link from "next/link";
 import Text from "@/components/Text/Text";

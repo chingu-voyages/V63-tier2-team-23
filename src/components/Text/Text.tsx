@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from "react";
 
 const variantStyles = {
   display: "text-display! font-sans!",
@@ -13,11 +13,11 @@ const variantStyles = {
 export type TextVariant = keyof typeof variantStyles;
 export const textVariants = Object.keys(variantStyles) as TextVariant[];
 
-type TextProps = HTMLAttributes<HTMLElement> & {
-  children?: ReactNode;
+type TextOwnProps = {
   variant?: TextVariant;
 };
 
+type TextProps = TextOwnProps & Omit<ComponentPropsWithoutRef<"span">, keyof TextOwnProps>;
 /**
  * Renders text with a typography style from the design system.
  *

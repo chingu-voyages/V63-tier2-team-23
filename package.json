@@ -15,9 +15,14 @@
     "test:watch": "vitest",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase reset",
+    "supabase:types": "supabase gen types typescript --local > lib/database.types.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.1",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -49,6 +54,7 @@
     "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "storybook": "^10.6.7",
+    "supabase": "^3.2.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5",
     "vite": "latest",

@@ -48,3 +48,5 @@ storybook-static
 
 .agents
 .junie
+.claude
+skills-lock.json

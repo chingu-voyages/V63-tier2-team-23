@@ -1,0 +1,7 @@
+.next
+node_modules
+storybook-static
+package-lock.json
+.github
+.idea
+docs

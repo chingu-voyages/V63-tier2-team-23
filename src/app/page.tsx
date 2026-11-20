@@ -9,7 +9,7 @@ export default function Home() {
     <Button
       type="primary"
       onClick={async () => {
-        const response = await signUp({ email: "oduntane360@gmail.com", password: "testing" });
+        const response = await signUp({ email: "example@gmail.com", password: "testing" });
         console.log(response);
       }}
     >

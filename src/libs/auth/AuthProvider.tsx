@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import type { AuthApiError, Session, User, AuthChangeEvent } from "@supabase/supabase-js";
+import type { AuthApiError, Session, User } from "@supabase/supabase-js";
 import { useSupabaseClient } from "@/libs/supabase/SupabaseClientProvider";
 
 type Credentials = {
@@ -40,8 +40,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const client = useSupabaseClient();
-  const [session, setSession] = useState<Session | null>();
-  const [user, setUser] = useState<User | null>();
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const {
@@ -50,7 +50,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       },
     } = client.auth.onAuthStateChange((event, authSession) => {
       setSession(authSession);
-      setUser(authSession?.user);
+      setUser(authSession?.user ?? null);
 
       return () => {
         unsubscribe();

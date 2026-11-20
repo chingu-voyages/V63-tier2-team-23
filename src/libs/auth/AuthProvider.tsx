@@ -1,0 +1,89 @@
+"use client";
+import { createContext, useState } from "react";
+import type { ReactNode } from "react";
+import type { AuthApiError, Session, User, AuthChangeEvent } from "@supabase/supabase-js";
+import { useSupabaseClient } from "@/libs/supabase/SupabaseClientProvider";
+
+type Credentials = {
+  email: string;
+  password: string;
+};
+
+/**
+ * Error code for signIn
+ * "invalid_credentials"
+ *
+ * signUp:
+ * "email_exists"
+ * "user_already_exists" (I don't know the difference between the two yet)
+ *
+ * signOut: (we most likely won't check for signOut error since the client SDK handles all the
+ * conditions that could generate the error in the first place.
+ * "session_not_found"
+ * "session_expired"
+ */
+type AuthResponse = {
+  data: {
+    session: Session | null;
+    user: User | null;
+  };
+  error: AuthApiError["code"] | null;
+};
+
+type SignOutResponse = Omit<AuthResponse, "data">;
+
+type AuthContextType = {
+  session: Session | null;
+  user: User | null;
+  signUp: (credentials: Credentials) => Promise<AuthResponse>;
+  signIn: (credentials: Credentials) => Promise<AuthResponse>;
+  signOut: () => Promise<SignOutResponse>;
+};
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+function AuthProvider({ children }: { children: ReactNode }) {
+  const client = useSupabaseClient();
+  const [session, setSession] = useState<Session | null>();
+  const [user, setUser] = useState<User | null>();
+
+  useEffect(() => {
+    const {
+      data: {
+        subscription: { unsubscribe },
+      },
+    } = client.auth.onAuthStateChange((event, authSession) => {
+      setSession(authSession);
+      setUser(authSession?.user);
+
+      return () => {
+        unsubscribe();
+      };
+    });
+  }, [client]);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        session,
+        user,
+        signUp: async (credentials): Promise<AuthResponse> => {
+          const response = await client.auth.signUp(credentials);
+          return { ...response, error: response.error?.code || null };
+        },
+        signIn: async (credentials): Promise<AuthResponse> => {
+          const response = await client.auth.signInWithPassword(credentials);
+          return { ...response, error: response.error?.code || null };
+        },
+        signOut: async (): Promise<SignOutResponse> => {
+          const response = await client.auth.signOut();
+          return { error: response.error?.code || null };
+        },
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export default AuthContext;

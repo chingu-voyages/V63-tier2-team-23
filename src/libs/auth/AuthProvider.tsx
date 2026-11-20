@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { AuthApiError, Session, User, AuthChangeEvent } from "@supabase/supabase-js";
 import { useSupabaseClient } from "@/libs/supabase/SupabaseClientProvider";
@@ -14,13 +14,9 @@ type Credentials = {
  * "invalid_credentials"
  *
  * signUp:
- * "email_exists"
- * "user_already_exists" (I don't know the difference between the two yet)
+ * "user_already_exists"
  *
- * signOut: (we most likely won't check for signOut error since the client SDK handles all the
- * conditions that could generate the error in the first place.
- * "session_not_found"
- * "session_expired"
+ * signOut: doesn't return any error
  */
 type AuthResponse = {
   data: {
@@ -86,4 +82,4 @@ function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export default AuthContext;
+export { AuthContext, AuthProvider };

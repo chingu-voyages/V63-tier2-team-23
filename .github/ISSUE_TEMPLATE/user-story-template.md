@@ -13,6 +13,11 @@ As a [role]
 I want to [action to be performed]
 So I can [result to be achieved]
 
+**__Acceptance Criteria__**
+- [ ] Given [context], when [action], then [expected result]
+- [ ] Given [context], when [action], then [expected result]
+- [ ] Additional criteria as necessary
+
 **__Steps to Follow (optional)__**
 - [ ] Step #1
 - [ ] Step #2

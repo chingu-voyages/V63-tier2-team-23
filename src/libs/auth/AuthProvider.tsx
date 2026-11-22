@@ -28,7 +28,7 @@ type AuthResponse = {
 
 type SignOutResponse = Omit<AuthResponse, "data">;
 
-type AuthContextType = {
+export type AuthContextType = {
   session: Session | null;
   user: User | null;
   signUp: (credentials: Credentials) => Promise<AuthResponse>;

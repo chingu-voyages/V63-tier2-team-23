@@ -93,5 +93,24 @@ describe("Sign Up", () => {
         expect(confirmPasswordError).toBeInTheDocument();
       });
     });
+
+    it("should show an error if the email field is invalid", async () => {
+      mockUseAuth({
+        signUp: vi.fn(),
+      });
+
+      render(<SignupPage />);
+
+      const emailField = screen.getByLabelText("Email *");
+      const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+
+      await userEvent.type(emailField, "user@");
+      await userEvent.click(signUpButton);
+
+      await waitFor(() => {
+        const emailError = screen.getByText("Enter a valid email address");
+        expect(emailError).toBeInTheDocument();
+      });
+    });
   });
 });

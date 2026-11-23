@@ -42,9 +42,10 @@ describe("Sign Up", () => {
 
     render(<SignupPage />);
 
-    const emailField = screen.getByLabelText(/Email/);
-    const passwordField = screen.getByLabelText(/Password/);
-    const confirmPasswordField = screen.getByLabelText(/Confirm password/);
+    const emailField = screen.getByLabelText("Email *");
+    const passwordField = screen.getByLabelText("Password *");
+    const confirmPasswordField = screen.getByLabelText("Confirm Password *");
+
     const signUpButton = screen.getByRole("button", { name: /Sign up/ });
 
     await userEvent.type(emailField, credentials.email);

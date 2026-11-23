@@ -15,6 +15,7 @@ export default function SignupPage() {
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [invalidEmailError, setInvalidEmailError] = useState(false);
+  const [emptyFieldError, setEmptyFieldError] = useState<string[]>([]);
 
   async function handleSubmit(formData: FormData) {
     const form = Object.fromEntries(formData.entries()) as {
@@ -22,6 +23,18 @@ export default function SignupPage() {
       password: string;
       confirmPassword: string;
     };
+
+    const emptyFields: string[] = [];
+
+    for (const key in form) {
+      if (form[key as keyof typeof form].length === 0) {
+        emptyFields.push(key);
+      }
+    }
+    if (emptyFields.length > 0) {
+      setEmptyFieldError(emptyFields);
+      return;
+    }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -105,6 +118,11 @@ export default function SignupPage() {
                   Enter a valid email address.
                 </Text>
               )}
+              {emptyFieldError.includes("email") && (
+                <Text type="caption" className="text-error">
+                  Enter your email address.
+                </Text>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <Field
@@ -119,6 +137,11 @@ export default function SignupPage() {
                   Use at least 8 characters.
                 </Text>
               )}
+              {emptyFieldError.includes("password") && (
+                <Text type="caption" className="text-error">
+                  Enter a password of at least 8 characters.
+                </Text>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <Field
@@ -131,6 +154,11 @@ export default function SignupPage() {
               {confirmPasswordError && (
                 <Text type="caption" className="text-error">
                   Re-enter the same password.
+                </Text>
+              )}
+              {emptyFieldError.includes("confirmPassword") && (
+                <Text type="caption" className="text-error">
+                  Confirm your password.
                 </Text>
               )}
             </div>

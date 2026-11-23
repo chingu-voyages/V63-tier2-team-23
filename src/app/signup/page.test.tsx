@@ -65,14 +65,15 @@ describe("Sign Up", () => {
 
       const emailField = screen.getByLabelText("Email *");
       const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+      const passwordField = screen.getByLabelText("Password *");
+      const confirmPasswordField = screen.getByLabelText("Confirm Password *");
 
       await userEvent.type(emailField, "example@example.com");
+      await userEvent.type(passwordField, "pass");
+      await userEvent.type(confirmPasswordField, "pass");
       await userEvent.click(signUpButton);
 
-      await waitFor(() => {
-        const passwordErrorField = screen.getByText("Use at least 8 characters.");
-        expect(passwordErrorField).toBeInTheDocument();
-      });
+      expect(await screen.findByText("Use at least 8 characters.")).toBeInTheDocument();
     });
 
     it("should show an error message when I submit with password and confirm password not matching", async () => {
@@ -99,22 +100,15 @@ describe("Sign Up", () => {
     });
 
     it("should show an error if the email field is invalid", async () => {
-      mockUseAuth({
-        signUp: vi.fn(),
-      });
-
+      mockUseAuth({ session: null, signUp: vi.fn() });
       render(<SignupPage />);
 
-      const emailField = screen.getByLabelText("Email *");
-      const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+      await userEvent.type(screen.getByLabelText("Email *"), "user@");
+      await userEvent.type(screen.getByLabelText("Password *"), "validPass123");
+      await userEvent.type(screen.getByLabelText("Confirm Password *"), "validPass123");
+      await userEvent.click(screen.getByRole("button", { name: /Sign up/ }));
 
-      await userEvent.type(emailField, "user@");
-      await userEvent.click(signUpButton);
-
-      await waitFor(() => {
-        const emailError = screen.getByText("Enter a valid email address.");
-        expect(emailError).toBeInTheDocument();
-      });
+      expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
     });
 
     it("should show an error message if I submit with an empty field", async () => {
@@ -128,7 +122,7 @@ describe("Sign Up", () => {
       await userEvent.click(signUpButton);
 
       await waitFor(() => {
-        const emailError = screen.getByText("Enter your email address");
+        const emailError = screen.getByText("Enter your email address.");
         const passwordError = screen.getByText("Enter a password of at least 8 characters.");
         const confirmPasswordError = screen.getByText("Confirm your password.");
 

@@ -1,95 +1,104 @@
-import { HTMLAttributes } from "react";
+import type { InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
 import Text from "@/components/Text/Text";
+
+type InputType = "text" | "password" | "date" | "time" | "email";
 
 type FieldOwnProps = {
   id?: string;
-  type?: "text" | "password" | "textarea" | "select" | "date" | "time";
   label: string;
-  value?: string;
-  placeholder?: string;
   error?: boolean;
   required?: boolean;
-  options?: string[];
+  className?: string; // Applied to the wrapper
 };
 
-type FieldProps = FieldOwnProps & HTMLAttributes<HTMLElement>;
+type FieldProps =
+  | (FieldOwnProps &
+      Omit<InputHTMLAttributes<HTMLInputElement>, keyof FieldOwnProps | "type"> & {
+        type?: InputType;
+      })
+  | (FieldOwnProps &
+      Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, keyof FieldOwnProps | "type"> & {
+        type: "textarea";
+      })
+  | (FieldOwnProps &
+      Omit<SelectHTMLAttributes<HTMLSelectElement>, keyof FieldOwnProps | "type"> & {
+        type: "select";
+        options: string[];
+      });
 
-/**
- * Renders a form field with a label and an input, textarea, select, date, time, or password field.
- *
- * **Props**
- *
- * | Prop | Type | Description |
- * |------|------|-------------|
- * | `id` | `string` | The field ID for label association |
- * | `type` | `"text"` \| `"password"` \| `"textarea"` \| `"select"` \| `"date"` \| `"time"` | The input type (default: `"text"`) |
- * | `label` | `string` | The field label |
- * | `value` | `string` | The field value |
- * | `placeholder` | `string` | Placeholder text |
- * | `error` | `boolean` | Whether to show error styling (default: `false`) |
- * | `required` | `boolean` | Whether the field is required (default: `true`) |
- * | `options` | `string[]` | Options for select type |
- * | `className` | `string` | Optional extra CSS classes |
- *
- * Any valid HTML attribute (e.g. `data-*`, `aria-*`, `onChange`) is also supported.
- *
- * **Examples**
- *
- * ```tsx
- * <Field type="text" label="Email" placeholder="Enter your email" required />
- * <Field type="textarea" label="Description" placeholder="Enter description" />
- * <Field type="select" label="Event type" options={["Online", "In-Person"]} />
- * <Field type="text" label="Password" error />
- * ```
- */
-export default function Field({
-  id,
-  type = "text",
-  placeholder,
-  label,
-  value,
-  className,
-  error = false,
-  required = true,
-  options,
-  ...props
-}: FieldProps) {
-  return (
-    <div className={`inline-flex flex-col items-stretch gap-2 ${className}`}>
-      <label htmlFor={id ?? ""}>
-        <Text className="text-on-surface" type="label">
-          {label} {required ? "*" : "(optional)"}
-        </Text>
-      </label>
-      {type === "textarea" ? (
+export default function Field(props: FieldProps) {
+  if (props.type === "textarea") {
+    const { id, label, error = false, required = true, className, ...textareaProps } = props;
+
+    return (
+      <div className={`inline-flex flex-col items-stretch gap-2 ${className ?? ""}`}>
+        <label htmlFor={id}>
+          <Text className="text-on-surface" type="label">
+            {label} {required ? "*" : "(optional)"}
+          </Text>
+        </label>
         <textarea
+          {...textareaProps}
+          id={id}
+          required={required}
           className={`${error ? "border-error" : "border-outline"} w-full resize-none rounded-small border p-3 text-body text-on-surface outline-outline placeholder:text-on-surface-variant`}
-          placeholder={placeholder}
-          value={value}
-          {...props}
         />
-      ) : type === "select" ? (
-        <div
-          className={`w-full rounded-small border border-outline p-3 outline-outline placeholder:text-on-surface-variant`}
-        >
-          <select className="text-body text-on-surface" {...props}>
-            {options?.map((option) => (
+      </div>
+    );
+  }
+
+  if (props.type === "select") {
+    const { id, label, error = false, required = true, className, options, ...selectProps } = props;
+
+    return (
+      <div className={`inline-flex flex-col items-stretch gap-2 ${className ?? ""}`}>
+        <label htmlFor={id}>
+          <Text className="text-on-surface" type="label">
+            {label} {required ? "*" : "(optional)"}
+          </Text>
+        </label>
+        <div className="w-full rounded-small border border-outline p-3 outline-outline">
+          <select
+            {...selectProps}
+            id={id}
+            required={required}
+            className="text-body text-on-surface"
+          >
+            {options.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
-      ) : (
-        <input
-          className={`${error ? "border-error" : "border-outline"} rounded-small border p-3 text-body text-on-surface outline-outline placeholder:text-on-surface-variant`}
-          id={id ?? ""}
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          {...props}
-        />
-      )}
+      </div>
+    );
+  }
+
+  const {
+    id,
+    label,
+    error = false,
+    required = true,
+    className,
+    type = "text",
+    ...inputProps
+  } = props;
+
+  return (
+    <div className={`inline-flex flex-col items-stretch gap-2 ${className ?? ""}`}>
+      <label htmlFor={id}>
+        <Text className="text-on-surface" type="label">
+          {label} {required ? "*" : "(optional)"}
+        </Text>
+      </label>
+      <input
+        {...inputProps}
+        id={id}
+        type={type}
+        required={required}
+        className={`${error ? "border-error" : "border-outline"} rounded-small border p-3 text-body text-on-surface outline-outline placeholder:text-on-surface-variant`}
+      />
     </div>
   );
 }

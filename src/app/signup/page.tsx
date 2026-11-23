@@ -13,6 +13,7 @@ export default function SignupPage() {
   const { push } = useRouter();
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     const form = Object.fromEntries(formData.entries()) as {
@@ -20,6 +21,11 @@ export default function SignupPage() {
       password: string;
       confirmPassword: string;
     };
+
+    if (form.confirmPassword !== form.password) {
+      setConfirmPasswordError(true);
+      return;
+    }
 
     if (form.password.length < 8) {
       setPasswordError(true);
@@ -31,7 +37,7 @@ export default function SignupPage() {
       password: form.password,
     } as Credentials);
 
-    if (response.error === "user_already_exists") {
+    if (response.error !== null && response.error === "user_already_exists") {
       setError(true);
     }
   }
@@ -100,13 +106,20 @@ export default function SignupPage() {
                 </Text>
               )}
             </div>
-            <Field
-              label="Confirm Password"
-              placeholder="Re-enter password"
-              className="w-full"
-              id="confirmPassword"
-              name="confirmPassword"
-            />
+            <div className="flex flex-col gap-2">
+              <Field
+                label="Confirm Password"
+                placeholder="Re-enter password"
+                className="w-full"
+                id="confirmPassword"
+                name="confirmPassword"
+              />
+              {confirmPasswordError && (
+                <Text type="caption" className="text-error">
+                  Re-enter the same password.
+                </Text>
+              )}
+            </div>
             <Button variant="primary" type="submit">
               Sign up
             </Button>

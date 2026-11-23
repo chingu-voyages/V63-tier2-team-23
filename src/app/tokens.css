@@ -83,4 +83,9 @@
   --shadow-flat: 0;
   --shadow-card: 0 1px 4px color-mix(in srgb, var(--color-on-surface) 4%, transparent);
   --shadow-dialog: 0 12px 32px color-mix(in srgb, var(--color-on-surface) 16%, transparent);
+
+  /* breakpoint */
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
 }

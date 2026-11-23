@@ -1,5 +1,5 @@
 "use client";
-import useAuth from "@/libs/auth/useAuth";
+import { useAuth } from "@/libs/auth/useAuth";
 import Button from "@/components/Button/Button";
 
 export default function Home() {

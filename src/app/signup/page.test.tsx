@@ -1,26 +1,26 @@
-import { render, waitFor } from "@testing-library/react";
-import { vi } from "vitest";
-import { mockUseAuth } from "@/libs/auth/mock/mockUseAuth";
 import SignupPage from "@/app/signup/page";
-vi.mock("@/libs/auth/useAuth");
+import { mockUseAuth } from "@/libs/auth/mock/mockUseAuth";
+import { render, waitFor, screen } from "@testing-library/react";
+import { vi } from "vitest";
 
 const push = vi.fn();
-vi.mock("next/router", () => ({
-  useRouter: {
-    push: push,
-  },
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push }),
+}));
+
+vi.mock("@/libs/auth/useAuth", () => ({
+  useAuth: vi.fn(),
 }));
 
 describe("Sign Up", () => {
-  describe("Given I am already logged in", () => {
-    it("should redirect me to the Events List Page", () => {
-      const { session } = mockUseAuth();
-
+  describe("When I am already logged in", () => {
+    it("should redirect me to the Events List Page", async () => {
+      mockUseAuth();
+      push.mockClear();
       render(<SignupPage />);
 
-      waitFor(() => {
-        expect(push).toHaveBeenCalledExactlyOnceWith("/events");
-      });
+      expect(push).toHaveBeenCalledExactlyOnceWith("/events");
     });
   });
 });

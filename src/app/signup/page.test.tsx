@@ -45,7 +45,6 @@ describe("Sign Up", () => {
     const emailField = screen.getByLabelText("Email *");
     const passwordField = screen.getByLabelText("Password *");
     const confirmPasswordField = screen.getByLabelText("Confirm Password *");
-
     const signUpButton = screen.getByRole("button", { name: /Sign up/ });
 
     await userEvent.type(emailField, credentials.email);
@@ -56,6 +55,22 @@ describe("Sign Up", () => {
     await waitFor(() => {
       const emailExists = screen.getByText(/An account with this email already exists./);
       expect(emailExists).toBeInTheDocument();
+    });
+  });
+
+  describe("Validation", () => {
+    it("should show an inline error message if I submit with a password that is less than 8 characters", async () => {
+      mockUseAuth();
+      render(<SignupPage />);
+
+      const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+
+      await userEvent.click(signUpButton);
+
+      await waitFor(() => {
+        const passwordErrorField = screen.getByText("Use at least 8 characters.");
+        expect(passwordErrorField).toBeInTheDocument();
+      });
     });
   });
 });

@@ -60,7 +60,10 @@ export default function SignupPage() {
 
     if (response.error !== null && response.error === "user_already_exists") {
       setUserExistError(true);
+      return;
     }
+
+    push("/events");
   }
 
   if (session !== null) {

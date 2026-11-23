@@ -59,7 +59,7 @@ describe("Sign Up", () => {
   });
 
   describe("Validation", () => {
-    it("should show an inline error message if I submit with a password that is less than 8 characters", async () => {
+    it("should show an inline error message when I submit with a password that is less than 8 characters", async () => {
       mockUseAuth();
       render(<SignupPage />);
 
@@ -70,6 +70,27 @@ describe("Sign Up", () => {
       await waitFor(() => {
         const passwordErrorField = screen.getByText("Use at least 8 characters.");
         expect(passwordErrorField).toBeInTheDocument();
+      });
+    });
+
+    it("should show an error message when I submit with password and confirm password not matching", async () => {
+      mockUseAuth({
+        signUp: vi.fn(),
+      });
+      render(<SignupPage />);
+
+      const passwordField = screen.getByLabelText("Password *");
+      const confirmPasswordField = screen.getByLabelText("Confirm Password *");
+
+      const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+
+      await userEvent.type(passwordField, "password");
+      await userEvent.type(confirmPasswordField, "random");
+      await userEvent.click(signUpButton);
+
+      await waitFor(() => {
+        const confirmPasswordError = screen.getByText("Re-enter the same password.");
+        expect(confirmPasswordError).toBeInTheDocument();
       });
     });
   });

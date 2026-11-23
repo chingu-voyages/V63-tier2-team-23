@@ -12,14 +12,14 @@ const buttonTypeStyles = {
 type ButtonVariant = "primary" | "secondary" | "danger" | "text";
 
 type ButtonOwnProps = {
-  type: ButtonVariant;
+  variant: ButtonVariant;
 };
 
 type ButtonProps = ButtonOwnProps & Omit<ComponentPropsWithoutRef<"button">, keyof ButtonOwnProps>;
 
-export default function Button({ type, children, className, ...props }: ButtonProps) {
+export default function Button({ variant, children, className, ...props }: ButtonProps) {
   return (
-    <button className={`rounded-small p-3 ${buttonTypeStyles[type]} ${className}`} {...props}>
+    <button className={`rounded-small p-3 ${buttonTypeStyles[variant]} ${className}`} {...props}>
       <Text type="label">{children}</Text>
     </button>
   );

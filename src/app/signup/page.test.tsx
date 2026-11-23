@@ -116,5 +116,26 @@ describe("Sign Up", () => {
         expect(emailError).toBeInTheDocument();
       });
     });
+
+    it("should show an error message if I submit with an empty field", async () => {
+      mockUseAuth({
+        signUp: vi.fn(),
+      });
+      render(<SignupPage />);
+
+      const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+
+      await userEvent.click(signUpButton);
+
+      await waitFor(() => {
+        const emailError = screen.getByText("Enter your email address");
+        const passwordError = screen.getByText("Enter a password of at least 8 characters.");
+        const confirmPasswordError = screen.getByText("Confirm your password.");
+
+        expect(emailError).toBeInTheDocument();
+        expect(passwordError).toBeInTheDocument();
+        expect(confirmPasswordError).toBeInTheDocument();
+      });
+    });
   });
 });

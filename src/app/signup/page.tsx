@@ -12,6 +12,7 @@ export default function SignupPage() {
   const { session, signUp } = useAuth();
   const { push } = useRouter();
   const [error, setError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     const form = Object.fromEntries(formData.entries()) as {
@@ -19,6 +20,11 @@ export default function SignupPage() {
       password: string;
       confirmPassword: string;
     };
+
+    if (form.password.length < 8) {
+      setPasswordError(true);
+      return;
+    }
 
     const response = await signUp({
       email: form.email,
@@ -64,11 +70,10 @@ export default function SignupPage() {
               Start planning your first event.
             </Text>
           </div>
-          <form className="flex flex-col gap-5" action={handleSubmit}>
+          <form noValidate className="flex flex-col gap-5" action={handleSubmit}>
             <div className="flex flex-col gap-2">
               <Field
                 label="Email"
-                required
                 placeholder="you@example.com"
                 className="w-full"
                 id="email"
@@ -81,17 +86,22 @@ export default function SignupPage() {
                 </Text>
               )}
             </div>
-            <Field
-              label="Password"
-              required
-              placeholder="Enter password"
-              className="w-full"
-              id="password"
-              name="password"
-            />
+            <div className="flex flex-col gap-2">
+              <Field
+                label="Password"
+                placeholder="Enter password"
+                className="w-full"
+                id="password"
+                name="password"
+              />
+              {passwordError && (
+                <Text type="caption" className="text-error">
+                  Use at least 8 characters.
+                </Text>
+              )}
+            </div>
             <Field
               label="Confirm Password"
-              required
               placeholder="Re-enter password"
               className="w-full"
               id="confirmPassword"

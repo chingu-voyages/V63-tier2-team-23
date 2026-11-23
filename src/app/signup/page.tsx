@@ -11,9 +11,10 @@ import { useState } from "react";
 export default function SignupPage() {
   const { session, signUp } = useAuth();
   const { push } = useRouter();
-  const [error, setError] = useState(false);
+  const [userExistError, setUserExistError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [invalidEmailError, setInvalidEmailError] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     const form = Object.fromEntries(formData.entries()) as {
@@ -21,6 +22,13 @@ export default function SignupPage() {
       password: string;
       confirmPassword: string;
     };
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(form.email)) {
+      setInvalidEmailError(true);
+      return;
+    }
 
     if (form.confirmPassword !== form.password) {
       setConfirmPasswordError(true);
@@ -38,7 +46,7 @@ export default function SignupPage() {
     } as Credentials);
 
     if (response.error !== null && response.error === "user_already_exists") {
-      setError(true);
+      setUserExistError(true);
     }
   }
 
@@ -84,11 +92,17 @@ export default function SignupPage() {
                 className="w-full"
                 id="email"
                 name="email"
-                error={error}
+                error={userExistError}
               />
-              {error && (
+              {userExistError && (
                 <Text type="caption" className="text-error">
                   An account with this email already exists.
+                </Text>
+              )}
+
+              {invalidEmailError && (
+                <Text type="caption" className="text-error">
+                  Enter a valid email address.
                 </Text>
               )}
             </div>

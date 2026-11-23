@@ -63,8 +63,10 @@ describe("Sign Up", () => {
       mockUseAuth();
       render(<SignupPage />);
 
+      const emailField = screen.getByLabelText("Email *");
       const signUpButton = screen.getByRole("button", { name: /Sign up/ });
 
+      await userEvent.type(emailField, "example@example.com");
       await userEvent.click(signUpButton);
 
       await waitFor(() => {
@@ -79,11 +81,13 @@ describe("Sign Up", () => {
       });
       render(<SignupPage />);
 
+      const emailField = screen.getByLabelText("Email *");
       const passwordField = screen.getByLabelText("Password *");
       const confirmPasswordField = screen.getByLabelText("Confirm Password *");
 
       const signUpButton = screen.getByRole("button", { name: /Sign up/ });
 
+      await userEvent.type(emailField, "example@example.com");
       await userEvent.type(passwordField, "password");
       await userEvent.type(confirmPasswordField, "random");
       await userEvent.click(signUpButton);
@@ -108,7 +112,7 @@ describe("Sign Up", () => {
       await userEvent.click(signUpButton);
 
       await waitFor(() => {
-        const emailError = screen.getByText("Enter a valid email address");
+        const emailError = screen.getByText("Enter a valid email address.");
         expect(emailError).toBeInTheDocument();
       });
     });

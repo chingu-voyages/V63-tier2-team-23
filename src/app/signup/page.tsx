@@ -4,11 +4,31 @@ import Field from "@/components/Field/Field";
 import Text from "@/components/Text/Text";
 import Link from "next/link";
 import { useAuth } from "@/libs/auth/useAuth";
+import { Credentials } from "@/libs/auth/AuthProvider";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignupPage() {
-  const { session, user } = useAuth();
+  const { session, signUp } = useAuth();
   const { push } = useRouter();
+  const [error, setError] = useState(false);
+
+  async function handleSubmit(formData: FormData) {
+    const form = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+      confirmPassword: string;
+    };
+
+    const response = await signUp({
+      email: form.email,
+      password: form.password,
+    } as Credentials);
+
+    if (response.error === "user_already_exists") {
+      setError(true);
+    }
+  }
 
   if (session !== null) {
     push("/events");
@@ -44,16 +64,42 @@ export default function SignupPage() {
               Start planning your first event.
             </Text>
           </div>
-          <form className="flex flex-col gap-5">
-            <Field label="Email" required placeholder="you@example.com" className="w-full" />
-            <Field label="Password" required placeholder="Enter password" className="w-full" />
+          <form className="flex flex-col gap-5" action={handleSubmit}>
+            <div className="flex flex-col gap-2">
+              <Field
+                label="Email"
+                required
+                placeholder="you@example.com"
+                className="w-full"
+                id="email"
+                name="email"
+                error={error}
+              />
+              {error && (
+                <Text type="caption" className="text-error">
+                  An account with this email already exists.
+                </Text>
+              )}
+            </div>
+            <Field
+              label="Password"
+              required
+              placeholder="Enter password"
+              className="w-full"
+              id="password"
+              name="password"
+            />
             <Field
               label="Confirm Password"
               required
               placeholder="Re-enter password"
               className="w-full"
+              id="confirmPassword"
+              name="confirmPassword"
             />
-            <Button type="primary">Sign up</Button>
+            <Button variant="primary" type="submit">
+              Sign up
+            </Button>
           </form>
           <div className="mt-6 flex flex-col gap-1">
             <Text type="body" className="text-on-surface-variant">

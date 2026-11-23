@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import type { AuthApiError, Session, User } from "@supabase/supabase-js";
 import { useSupabaseClient } from "@/libs/supabase/SupabaseClientProvider";
 
-type Credentials = {
+export type Credentials = {
   email: string;
   password: string;
 };

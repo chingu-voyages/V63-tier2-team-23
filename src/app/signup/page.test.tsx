@@ -132,4 +132,34 @@ describe("Sign Up", () => {
       });
     });
   });
+
+  it("should create an account and redirect me to the events page after I successfully create an account", async () => {
+    const credentials = {
+      email: "example.com",
+      password: "password",
+    };
+    mockUseAuth({
+      signUp: vi.fn().mockReturnValue({
+        session: {},
+        user: {},
+        error: null,
+      }),
+    });
+
+    render(<SignupPage />);
+
+    const emailField = screen.getByLabelText("Email *");
+    const passwordField = screen.getByLabelText("Password *");
+    const confirmPasswordField = screen.getByLabelText("Confirm Password *");
+    const signUpButton = screen.getByRole("button", { name: /Sign up/ });
+
+    await userEvent.type(emailField, credentials.email);
+    await userEvent.type(passwordField, credentials.password);
+    await userEvent.type(confirmPasswordField, credentials.password);
+    await userEvent.click(signUpButton);
+
+    waitFor(() => {
+      expect(push).toHaveBeenCalledWith("/events");
+    });
+  });
 });

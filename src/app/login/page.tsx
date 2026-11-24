@@ -114,6 +114,7 @@ export default function LoginPage() {
               <Field
                 id="password"
                 name="password"
+                type="password"
                 label="Password"
                 placeholder="Enter password"
                 className="w-full"

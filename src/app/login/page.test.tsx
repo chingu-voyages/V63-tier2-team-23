@@ -4,11 +4,14 @@ import LoginPage from "@/app/login/page";
 import { vi } from "vitest";
 import { mockUseAuth } from "@/libs/auth/mock/mockUseAuth";
 
-vi.mock("@/libs/auth/userAuth", () => ({
+vi.mock("@/libs/auth/useAuth", () => ({
   useAuth: vi.fn(),
 }));
 
-const push = vi.fn();
+const { push } = vi.hoisted(() => ({
+  push: vi.fn(),
+}));
+
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn().mockReturnValue({
     push,
@@ -28,6 +31,7 @@ describe("LoginPage", () => {
 
   it("should show an inline error message when I submit an empty email or password field", async () => {
     mockUseAuth({
+      session: null,
       signOut: vi.fn(),
     });
 
@@ -54,6 +58,7 @@ describe("LoginPage", () => {
       password: "incorrect password.",
     };
     mockUseAuth({
+      session: null,
       signIn: vi.fn().mockReturnValue({
         data: {
           session: null,
@@ -88,6 +93,7 @@ describe("LoginPage", () => {
       password: "password",
     };
     mockUseAuth({
+      session: null,
       signIn: vi.fn().mockReturnValue({
         data: {
           session: {},

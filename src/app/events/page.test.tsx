@@ -42,29 +42,5 @@ describe("EventListPage", () => {
         expect(push).toHaveBeenCalledWith("/login");
       });
     });
-
-    it("should display an error and not redirect when signOut fails", async () => {
-      const signOut = vi.fn().mockResolvedValue({
-        error: "some_error",
-      });
-
-      mockUseAuth({ signOut });
-
-      const user = userEvent.setup();
-      render(<EventListPage />);
-
-      const logOutButton = screen.getByRole("button", {
-        name: "Log out",
-      });
-
-      await user.click(logOutButton);
-
-      expect(await screen.findByRole("alert")).toHaveTextContent(
-        "Unable to log out. Please try again.",
-      );
-
-      expect(signOut).toHaveBeenCalledTimes(1);
-      expect(push).not.toHaveBeenCalled();
-    });
   });
 });

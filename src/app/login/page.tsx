@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/libs/auth/useAuth";
@@ -10,9 +10,8 @@ import Feedback from "@/components/Feedback/Feedback";
 import Button from "@/components/Button/Button";
 
 export default function LoginPage() {
-  const router = useRouter();
   const { session, signIn } = useAuth();
-
+  const { push } = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,18 +22,6 @@ export default function LoginPage() {
   const [authError, setAuthError] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  // ACCEPTANCE CRITERIA ", every time session changes,
-  //  check: if the user is logged in,
-  //  on successful automatically send them to /events page.
-
-  useEffect(() => {
-    if (session) {
-      router.push("/events");
-    }
-  }, [session, router]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,9 +46,12 @@ export default function LoginPage() {
       setAuthError("Invalid email or password.");
       return;
     }
-    router.push("/events");
+    push("/events");
   }
 
+  if (session !== null) {
+    push("/events");
+  }
   return (
     <div className="min-h-screen bg-background">
       <header className="flex h-20 flex-col justify-center px-6 tablet:px-12">
@@ -121,67 +111,9 @@ export default function LoginPage() {
               )}
             </div>
             <div className="flex flex-col gap-1">
-              {/* <div className="relative">
-                <Field
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  label="Password"
-                  placeholder="Enter password"
-                  className="w-full"
-                  value={password}
-                  error={Boolean(fieldErrors.password)}
-                  required
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setPassword(e.target.value);
-                    if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: "" });
-                  }}
-                />
-                <button
-                  type="button"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 bottom-3.5 text-on-surface-variant hover:text-on-surface"
-                >
-                  {showPassword ? (
-                    <svg
-                      xmlns="http://w3.org"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-                      <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-                      <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-                      <line x1="2" x2="22" y1="2" y2="22" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://w3.org"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )}
-                </button>
-              </div> */}
               <Field
                 id="password"
                 name="password"
-                type={showPassword ? "text" : "password"}
                 label="Password"
                 placeholder="Enter password"
                 className="w-full"

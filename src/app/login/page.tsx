@@ -41,8 +41,8 @@ export default function LoginPage() {
     setAuthError("");
 
     const newErrors = {
-      email: email.trim() === "" ? "Email is required" : "",
-      password: password.trim() === "" ? "Password is required" : "",
+      email: email.trim() === "" ? "Enter your email address." : "",
+      password: password.trim() === "" ? "Enter your password." : "",
     };
 
     setFieldErrors(newErrors);
@@ -56,7 +56,7 @@ export default function LoginPage() {
     setIsSubmitting(false);
 
     if (response.error) {
-      setAuthError("Invalid email or password");
+      setAuthError("Invalid email or password.");
       return;
     }
     router.push("/events");
@@ -73,13 +73,13 @@ export default function LoginPage() {
       <main className="justify-center gap-16 p-6 tablet:p-12 desktop:flex">
         <div className="hidden w-120 flex-col items-start gap-6 rounded-xlarge bg-secondary p-10 desktop:flex">
           <Text type="caption" className="text-on-secondary">
-            PLAN LESS, CELEBRATE MORE.
+            A LITTLE PLANNING, GREAT EVENT.
           </Text>
           <Text type="display" className="text-on-secondary">
-            Make it an event to remember.&nbsp;
+            Your next event start here.&nbsp;
           </Text>
           <Text type="body" className="text-on-secondary">
-            Your event, enjoy it.
+            Create it, make it happend.
           </Text>
         </div>
 
@@ -104,7 +104,7 @@ export default function LoginPage() {
                 name="email"
                 type="text"
                 label="Email"
-                placeholder="youremail@gmail.com"
+                placeholder="you@example.com"
                 className="w-full"
                 value={email}
                 error={Boolean(fieldErrors.email)}
@@ -121,12 +121,12 @@ export default function LoginPage() {
               )}
             </div>
             <div className="flex flex-col gap-1">
-              <div className="relative">
+              {/* <div className="relative">
                 <Field
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  label="password"
+                  label="Password"
                   placeholder="Enter password"
                   className="w-full"
                   value={password}
@@ -177,7 +177,22 @@ export default function LoginPage() {
                     </svg>
                   )}
                 </button>
-              </div>
+              </div> */}
+              <Field
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                label="Password"
+                placeholder="Enter password"
+                className="w-full"
+                value={password}
+                error={Boolean(fieldErrors.password)}
+                required
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setPassword(e.target.value);
+                  if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: "" });
+                }}
+              />
               {fieldErrors.password && (
                 <Text type="caption" className="text-error">
                   {fieldErrors.password}
@@ -190,10 +205,10 @@ export default function LoginPage() {
           </form>
           <div className="mt-6 flex flex-col gap-1">
             <Text type="body" className="text-on-surface-variant">
-              Don&apos;t have an account?
+              New to Event Planner?
             </Text>
             <Link href="/signup" className="text-primary">
-              Sign Up
+              Create an account
             </Link>
           </div>
         </div>

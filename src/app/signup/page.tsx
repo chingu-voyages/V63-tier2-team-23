@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/libs/auth/useAuth";
 import { Credentials } from "@/libs/auth/AuthProvider";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function SignupPage() {
   const { session, signUp } = useAuth();
@@ -17,7 +17,9 @@ export default function SignupPage() {
   const [invalidEmailError, setInvalidEmailError] = useState(false);
   const [emptyFieldError, setEmptyFieldError] = useState<string[]>([]);
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
     const form = Object.fromEntries(formData.entries()) as {
       email: string;
       password: string;
@@ -100,7 +102,7 @@ export default function SignupPage() {
               Start planning your first event.
             </Text>
           </div>
-          <form noValidate className="flex flex-col gap-5" action={handleSubmit}>
+          <form noValidate className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
               <Field
                 label="Email"

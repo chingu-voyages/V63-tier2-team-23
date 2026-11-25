@@ -108,6 +108,78 @@ export default function SignupPage() {
                 className="w-full"
                 id="email"
                 name="email"
+                error={userExistError || invalidEmailError || emptyFieldError.includes("email")}
+              />
+              {userExistError && (
+                <Text type="caption" className="text-error">
+                  An account with this email already exists.
+                </Text>
+              )}
+              {invalidEmailError && (
+                <Text type="caption" className="text-error">
+                  Enter a valid email address.
+                </Text>
+              )}
+              {emptyFieldError.includes("email") && (
+                <Text type="caption" className="text-error">
+                  Enter your email address.
+                </Text>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <Field
+                type="password"
+                label="Password"
+                placeholder="Enter password"
+                className="w-full"
+                id="password"
+                name="password"
+                error={passwordError || emptyFieldError.includes("password")}
+              />
+              {passwordError && (
+                <Text type="caption" className="text-error">
+                  Use at least 8 characters.
+                </Text>
+              )}
+              {emptyFieldError.includes("password") && (
+                <Text type="caption" className="text-error">
+                  Enter a password of at least 8 characters.
+                </Text>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <Field
+                type="password"
+                label="Confirm Password"
+                placeholder="Re-enter password"
+                className="w-full"
+                name="confirmPassword"
+                id="confirmPassword"
+                error={confirmPasswordError || emptyFieldError.includes("confirmPassword")}
+              />
+              {confirmPasswordError && (
+                <Text type="caption" className="text-error">
+                  Re-enter the same password.
+                </Text>
+              )}
+              {emptyFieldError.includes("confirmPassword") && (
+                <Text type="caption" className="text-error">
+                  Confirm your password.
+                </Text>
+              )}
+            </div>
+            <Button variant="primary" type="submit">
+              Sign up
+            </Button>
+          </form>
+          {/* <form noValidate className="flex flex-col gap-5" action={handleSubmit}>
+            <div className="flex flex-col gap-2">
+              <Field
+                label="Email"
+                placeholder="you@example.com"
+                className="w-full"
+                id="email"
+                name="email"
                 error={userExistError}
               />
               {userExistError && (
@@ -168,7 +240,7 @@ export default function SignupPage() {
             <Button variant="primary" type="submit">
               Sign up
             </Button>
-          </form>
+          </form> */}
           <div className="mt-6 flex flex-col gap-1">
             <Text type="body" className="text-on-surface-variant">
               Already have an account?

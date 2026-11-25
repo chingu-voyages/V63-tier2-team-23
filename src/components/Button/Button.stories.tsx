@@ -10,7 +10,7 @@ const meta = {
     },
   },
   argTypes: {
-    type: {
+    variant: {
       options: ["primary", "secondary", "danger", "text"],
     },
   },
@@ -25,24 +25,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    type: "primary",
+    variant: "primary",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    type: "secondary",
+    variant: "secondary",
   },
 };
 
 export const Danger: Story = {
   args: {
-    type: "danger",
+    variant: "danger",
   },
 };
 
 export const Text: Story = {
   args: {
-    type: "text",
+    variant: "text",
   },
 };

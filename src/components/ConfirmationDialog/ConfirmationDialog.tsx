@@ -60,10 +60,10 @@ export default function ConfirmationDialog({
         {title}
       </Text>
       <Text className="text-on-surface-variant">{message}</Text>
-      <Button type={kind === "delete" ? "danger" : "primary"} onClick={onConfirmAction}>
+      <Button variant={kind === "delete" ? "danger" : "primary"} onClick={onConfirmAction}>
         {confirmLabel}
       </Button>
-      <Button type="secondary" onClick={onCancelAction}>
+      <Button variant="secondary" onClick={onCancelAction}>
         {cancelLabel}
       </Button>
     </div>

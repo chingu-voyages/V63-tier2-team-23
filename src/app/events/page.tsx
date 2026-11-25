@@ -39,12 +39,12 @@ export default function EventListPage() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-outline-variant bg-surface">
-        <div className="sm:min-h-[98px] sm:px-6 mx-auto flex min-h-18 max-w-352 flex-wrap items-center justify-between gap-3 px-5 py-4">
+        <div className="flex min-h-22 w-full flex-wrap items-center justify-between gap-3 pr-8 pl-5">
           <Text type="subheadline" className="shrink-0 text-primary">
             event planner
           </Text>
 
-          <nav aria-label="Main navigation" className="sm:gap-8 flex items-center gap-3">
+          <nav aria-label="Main navigation" className="flex items-center gap-8">
             <a href="/events" aria-current="page" className="text-label text-on-surface-variant">
               My events
             </a>
@@ -54,7 +54,7 @@ export default function EventListPage() {
               type="button"
               onClick={handleLogout}
               disabled={isSigningOut}
-              className="bg-transparent p-0 text-on-surface-variant disabled:opacity-60"
+              className="bg-transparent p-0! text-on-surface-variant disabled:opacity-60"
             >
               {isSigningOut ? "Logging out..." : "Log out"}
             </Button>
@@ -62,7 +62,7 @@ export default function EventListPage() {
         </div>
       </header>
 
-      <main className="sm:px-8 sm:pt-12 mx-auto w-full max-w-303.5 px-5 pt-8 pb-12">
+      <main className="w-full px-6 pt-6 pb-12 tablet:px-12 tablet:pt-12 desktop:px-22">
         <section aria-labelledby="events-heading">
           <Text type="label" className="mb-2 block tracking-wide text-primary uppercase">
             Your workspace
@@ -74,22 +74,26 @@ export default function EventListPage() {
             </Text>
           </h1>
 
-          <Text type="subheadline" className="mt-2 block text-on-surface-variant">
+          <Text type="body" className="mt-1 block text-on-surface-variant">
             Make space for something good.
           </Text>
 
-          <div className="sm:min-h-[257px] sm:px-10 sm:py-[52px] lg:px-[52px] mt-6 min-h-55 rounded-large border border-outline-variant bg-surface px-6 py-8">
+          <div className="mt-6 rounded-large border border-outline-variant bg-surface p-6 tablet:p-12">
             <h2>
               <Text type="headline" className="block text-on-surface">
                 Your first event starts here.
               </Text>
             </h2>
 
-            <Text type="subheadline" className="mt-4 block text-on-surface-variant">
-              You haven&apos;t created any events yet.
+            <Text type="body" className="mt-4 block text-on-surface-variant">
+              You haven&rsquo;t created any events yet.
             </Text>
 
-            <Button variant="primary" type="button" className="mt-4 p-4">
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-4 h-12 w-full px-3.5 tablet:w-auto"
+            >
               Create your first event
             </Button>
           </div>

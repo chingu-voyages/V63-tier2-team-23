@@ -48,7 +48,7 @@ export default function Field(props: FieldProps) {
   }
 
   if (props.type === "select") {
-    const { id, label, error = false, required = true, className, options, ...selectProps } = props;
+    const { id, label, required = true, className, options, ...selectProps } = props;
 
     return (
       <div className={`inline-flex flex-col items-stretch gap-2 ${className ?? ""}`}>

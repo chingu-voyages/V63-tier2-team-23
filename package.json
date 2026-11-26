@@ -22,10 +22,12 @@
     "supabase:types": "supabase gen types typescript --local > lib/database.types.ts"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.15.0",
     "@supabase/supabase-js": "^2.119.1",
     "next": "16.4.6",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-redux": "^9.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",

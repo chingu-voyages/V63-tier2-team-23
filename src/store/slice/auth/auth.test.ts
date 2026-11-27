@@ -4,12 +4,11 @@ import {
   type SupabaseClient,
   type AuthUser as User,
   AuthSession as Session,
+  AuthApiError,
 } from "@supabase/supabase-js";
 import { authReducer } from "@/store/slice/auth";
 import { makeStore } from "@/store";
 import { logIn } from "@/store/slice/auth/actions";
-
-vi.mock("@supabase/supabase-js");
 
 const supabaseClient = {
   auth: {
@@ -94,11 +93,7 @@ describe("Auth Slice", () => {
             session: null,
             user: null,
           },
-          error: {
-            code: "invalid_credentials",
-            message: "Invalid login credentials",
-            status: 400,
-          },
+          error: new AuthApiError("Invalid login credentials", 400, "invalid_credentials"),
         }),
       );
 

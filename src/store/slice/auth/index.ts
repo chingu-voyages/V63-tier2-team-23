@@ -30,6 +30,11 @@ const authSlice = createSlice({
         state.status = "authenticated";
         state.user = action.payload;
         state.error = null;
+      })
+      .addCase(logIn.rejected, (state, action) => {
+        state.status = "unauthenticated";
+        state.user = null;
+        state.error = action.payload;
       });
   },
 });

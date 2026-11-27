@@ -27,6 +27,10 @@ export const logIn = createAsyncThunk<User, Credentials, LoginThunkExtra>(
   ) => {
     const response = await auth.signInWithPassword({ email, password });
 
+    if (response.error) {
+      return rejectWithValue(response.error.code);
+    }
+
     return fulfillWithValue(response.data.user);
   },
 );

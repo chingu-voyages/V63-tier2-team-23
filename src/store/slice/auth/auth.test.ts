@@ -80,5 +80,36 @@ describe("Auth Slice", () => {
 
       expect(store.getState().auth).toEqual(expectedState);
     });
+
+    it("sets the error message and status to unauthenticated and user field null when login is not successful", async () => {
+      const expectedState = {
+        status: "unauthenticated",
+        user: null,
+        error: "invalid_credentials",
+      };
+
+      vi.spyOn(supabaseClient.auth, "signInWithPassword").mockReturnValueOnce(
+        Promise.resolve({
+          data: {
+            session: null,
+            user: null,
+          },
+          error: {
+            code: "invalid_credentials",
+            message: "Invalid login credentials",
+            status: 400,
+          },
+        }),
+      );
+
+      await store.dispatch(
+        logIn({
+          email: "example.com",
+          password: "password",
+        }),
+      );
+
+      expect(store.getState().auth).toEqual(expectedState);
+    });
   });
 });

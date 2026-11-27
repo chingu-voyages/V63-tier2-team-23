@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AuthApiError, AuthUser as User } from "@supabase/supabase-js";
 import { type RootState } from "@/store";
-import { logIn, signUp } from "@/store/slice/auth/actions";
+import { logIn, signUp, logOut } from "@/store/slice/auth/actions";
 
 type AuthStatus = "loading" | "unauthenticated" | "authenticated";
 
@@ -46,6 +46,16 @@ const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.status = "authenticated";
         state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(logOut.pending, (state) => {
+        state.status = "loading";
+        state.user = state.user;
+        state.error = state.error;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.status = "unauthenticated";
+        state.user = null;
         state.error = null;
       });
   },

@@ -6,7 +6,7 @@ import {
   AuthApiError,
 } from "@supabase/supabase-js";
 import { makeStore } from "@/store";
-import { logIn, signUp } from "@/store/slice/auth/actions";
+import { logIn, signUp, logOut } from "@/store/slice/auth/actions";
 
 const supabaseClient = {
   auth: {

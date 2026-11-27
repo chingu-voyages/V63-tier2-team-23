@@ -53,3 +53,19 @@ export const signUp = createAsyncThunk<User, Credentials, ThunkExtras>(
     return fulfillWithValue(response.data.user!);
   },
 );
+
+export const logOut = createAsyncThunk<void, void, ThunkExtras>(
+  "auth/logout",
+  async (
+    _,
+    {
+      extra: {
+        supabaseClient: {
+          auth: { signOut },
+        },
+      },
+    },
+  ) => {
+    await signOut({ scope: "local" });
+  },
+);

@@ -59,7 +59,12 @@ describe("Auth Slice", () => {
         }),
       );
 
-      await store.dispatch(logIn);
+      await store.dispatch(
+        logIn({
+          email: "example@email.com",
+          password: "password",
+        }),
+      );
 
       expect(store.getState().auth).toEqual(expectedState);
     });

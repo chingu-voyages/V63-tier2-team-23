@@ -11,6 +11,7 @@ import { logIn } from "@/store/slice/auth/actions";
 const supabaseClient = {
   auth: {
     signInWithPassword: vi.fn(),
+    signUp: vi.fn(),
   },
 } as unknown as SupabaseClient;
 
@@ -107,6 +108,31 @@ describe("Auth Slice", () => {
   });
 
   describe("SignUp", () => {
-    it("sets the auth state to authenticated and stores the returned user when sign up is successful", async () => {});
+    it("sets the auth state to authenticated and stores the returned user when sign up is successful", async () => {
+      const expectedState = {
+        status: "authenticated",
+        user: mockUser,
+        error: null,
+      };
+
+      vi.spyOn(supabaseClient.auth, "signUp").mockReturnValueOnce(
+        Promise.resolve({
+          data: {
+            session: mockSession,
+            user: mockUser,
+          },
+          error: null,
+        }),
+      );
+
+      await store.dispatch(
+        signUp({
+          email: "example.com",
+          password: "password",
+        }),
+      );
+
+      expect(store.getState().auth).toEqual(expectedState);
+    });
   });
 });

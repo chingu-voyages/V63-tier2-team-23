@@ -34,3 +34,22 @@ export const logIn = createAsyncThunk<User, Credentials, LoginThunkExtra>(
     return fulfillWithValue(response.data.user);
   },
 );
+
+export const signUp = createAsyncThunk<User, Credentials, ThunkExtras>(
+  "auth/signup",
+  async (
+    { email, password },
+    {
+      extra: {
+        supabaseClient: {
+          auth: { signUp },
+        },
+      },
+      fulfillWithValue,
+    },
+  ) => {
+    const response = await signUp({ email, password });
+
+    return fulfillWithValue(response.data.user!);
+  },
+);

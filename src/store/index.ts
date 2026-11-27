@@ -7,6 +7,12 @@ const rootReducer = combineReducers({
   auth: authReducer,
 });
 
+export type ThunkExtras = {
+  extra: {
+    supabaseClient: SupabaseClient;
+  };
+};
+
 export const makeStore = (supabaseClient: SupabaseClient) =>
   configureStore({
     reducer: rootReducer,

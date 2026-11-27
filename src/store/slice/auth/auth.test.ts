@@ -1,5 +1,10 @@
 import { vi } from "vitest";
-import { createClient } from "@supabase/supabase-js";
+import {
+  createClient,
+  type SupabaseClient,
+  type AuthUser as User,
+  AuthSession as Session,
+} from "@supabase/supabase-js";
 import { authReducer } from "@/store/slice/auth";
 import { makeStore } from "@/store";
 import { logIn } from "@/store/slice/auth/actions";
@@ -12,9 +17,26 @@ const supabaseClient = {
   },
 } as unknown as SupabaseClient;
 
-// beforeEach(() => {
-//   vi.clearAllMocks();
-// });
+const mockUser: User = {
+  id: "11111111-1111-1111-1111-111111111111",
+  aud: "authenticated",
+  app_metadata: { provider: "email", providers: ["email"] },
+  user_metadata: {},
+  created_at: "2026-01-01T00:00:00Z",
+  email: "example@email.com",
+};
+
+const mockSession: Session = {
+  access_token: "test-access-token",
+  refresh_token: "test-refresh-token",
+  expires_in: 3600,
+  token_type: "bearer",
+  user: mockUser,
+};
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 describe("Auth Slice", () => {
   let store: ReturnType<typeof makeStore>;
@@ -35,25 +57,15 @@ describe("Auth Slice", () => {
     it("sets the auth status to authenticated, stores the returned user, and leaves error as null when login succeeds", async () => {
       const expectedState = {
         status: "authenticated",
-        user: {
-          id: "11111111-1111-1111-1111-111111111111",
-          aud: "authenticated",
-          role: "authenticated",
-          email: "example@email.com",
-        },
+        user: mockUser,
         error: null,
       };
 
       vi.spyOn(supabaseClient.auth, "signInWithPassword").mockReturnValueOnce(
         Promise.resolve({
           data: {
-            session: {},
-            user: {
-              id: "11111111-1111-1111-1111-111111111111",
-              aud: "authenticated",
-              role: "authenticated",
-              email: "example@email.com",
-            },
+            session: mockSession,
+            user: mockUser,
           },
           error: null,
         }),

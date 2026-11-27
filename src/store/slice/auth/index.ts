@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { AuthApiError, AuthUser as User } from "@supabase/supabase-js";
 import { type RootState } from "@/store";
 import { logIn } from "@/store/slice/auth/actions";

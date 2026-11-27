@@ -1,12 +1,10 @@
 import { vi } from "vitest";
 import {
-  createClient,
   type SupabaseClient,
   type AuthUser as User,
   AuthSession as Session,
   AuthApiError,
 } from "@supabase/supabase-js";
-import { authReducer } from "@/store/slice/auth";
 import { makeStore } from "@/store";
 import { logIn } from "@/store/slice/auth/actions";
 
@@ -106,5 +104,9 @@ describe("Auth Slice", () => {
 
       expect(store.getState().auth).toEqual(expectedState);
     });
+  });
+
+  describe("SignUp", () => {
+    it("sets the auth state to authenticated and stores the returned user when sign up is successful", async () => {});
   });
 });

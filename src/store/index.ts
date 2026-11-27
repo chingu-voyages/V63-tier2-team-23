@@ -1,7 +1,11 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { type SupabaseClient } from "@supabase/supabase-js";
 
-const rootReducer = combineReducers({});
+import { authReducer } from "@/store/slice/auth";
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+});
 
 export const makeStore = (supabaseClient: SupabaseClient) =>
   configureStore({

@@ -1,7 +1,7 @@
 "use client";
 import { useState, type ReactNode } from "react";
 import { Provider } from "react-redux";
-import { makeStore } from "./store";
+import { makeStore } from "./index";
 import { createClient } from "@supabase/supabase-js";
 
 export default function StoreProvider({ children }: { children: ReactNode }) {

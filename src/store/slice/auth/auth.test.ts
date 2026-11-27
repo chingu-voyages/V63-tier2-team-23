@@ -12,6 +12,7 @@ const supabaseClient = {
   auth: {
     signInWithPassword: vi.fn(),
     signUp: vi.fn(),
+    signOut: vi.fn(),
   },
 } as unknown as SupabaseClient;
 
@@ -132,6 +133,23 @@ describe("Auth Slice", () => {
         }),
       );
 
+      expect(store.getState().auth).toEqual(expectedState);
+    });
+  });
+
+  describe("Logout", () => {
+    it("resets auth slice to its initial state when logout succeeds", async () => {
+      const expectedState = {
+        status: "unauthenticated",
+        user: null,
+        error: null,
+      };
+
+      vi.spyOn(supabaseClient.auth, "signOut").mockReturnValueOnce(
+        Promise.resolve({ error: null }),
+      );
+
+      await store.dispatch(logOut());
       expect(store.getState().auth).toEqual(expectedState);
     });
   });
